@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Application xmlns:mx="http://www.adobe.com/2006/mxml" layout="vertical" preinitialize="preinit()" xmlns:local="*">
+  
+  <mx:Script>
+    <![CDATA[
+      import mx.core.UIComponent;
+      import mx.controls.Alert;
+      import mx.events.FlexEvent;
+      
+      private var helpDisplay:HelpDisplay = new HelpDisplay();
+      
+      private function preinit():void {
+        Application.application.addEventListener(FlexEvent.CREATION_COMPLETE, addHelp, true);        
+      }  
+      
+      private function addHelp(event:FlexEvent):void {
+        var target:Object = event.target;
+        
+        if (target is IHelpAvailable) {
+          
+          (target as IEventDispatcher).addEventListener(MouseEvent.ROLL_OVER, function(e:Event):void {
+            helpDisplay.helpContent = target['helpContent'];
+            (target as UIComponent).addChild(helpDisplay)
+          });
+          
+          (target as IEventDispatcher).addEventListener(MouseEvent.ROLL_OUT, function(e:Event):void {
+            (target as UIComponent).removeChild(helpDisplay)
+          });
+          
+          //Alert.show('Added an help available target: ' + target['helpId']);
+        }
+      }
+      
+    ]]>
+  </mx:Script>
+
+  <mx:Label text="hi"/>
+  <mx:Canvas width="200" height="200" backgroundColor="yellow"/>
+  <local:CanvasWithHelp helpId="fred" backgroundColor="red"/>
+  
+  <local:CanvasWithHelp helpId="jones" helpContent="Follow the blue brick road" backgroundColor="blue"/>
+</mx:Application>

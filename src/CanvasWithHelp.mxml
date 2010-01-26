@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Canvas xmlns:mx="http://www.adobe.com/2006/mxml" width="400" height="300" implements="IHelpAvailable">
+  <mx:Script>
+    <![CDATA[
+      
+      public var helpId:String = 'helpCanvas';
+      
+      public var helpContent:String = 'This is my help.';
+      
+      public var helpDisplayClass:Class = HelpDisplay;
+      
+    ]]>
+  </mx:Script>
+</mx:Canvas>
